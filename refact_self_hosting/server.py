@@ -33,7 +33,7 @@ if __name__ == "__main__":
     stream_handler = logging.StreamHandler(stream=sys.stdout)
     logging.basicConfig(level=logging.INFO, handlers=[stream_handler, file_handler])
 
-    inference = Inference(token=args.token, workdir=args.workdir, model_name=args.model, force_cpu=args.cpu)
+    inference = Inference(workdir=args.workdir, model_name=args.model, force_cpu=args.cpu)
 
     app = FastAPI(docs_url=None)
     app.include_router(ActivateRouter(args.token))
