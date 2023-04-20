@@ -9,7 +9,6 @@ from datetime import datetime
 from pathlib import Path
 from fastapi import FastAPI
 
-from refact_self_hosting.gen_certificate import gen_certificate
 from refact_self_hosting.inference import Inference
 from refact_self_hosting.routers import ActivateRouter
 from refact_self_hosting.routers import CompletionRouter
@@ -41,13 +40,9 @@ if __name__ == "__main__":
     app.include_router(CompletionRouter(args.token, inference))
     app.include_router(ContrastRouter(args.token, inference))
 
-    key_filename, cert_filename = gen_certificate(args.workdir)
-
     config = Config()
     config.bind = f"{args.host}:{args.port}"
     config.accesslog = "-"
-    config.keyfile = key_filename
-    config.certfile = cert_filename
     config.keep_alive_timeout = 600
     config.graceful_timeout = 600
 
