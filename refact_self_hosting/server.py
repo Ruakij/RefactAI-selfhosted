@@ -1,6 +1,7 @@
 import logging
 import asyncio
 import sys
+import os
 
 from hypercorn.config import Config
 from hypercorn.asyncio import serve
@@ -26,6 +27,9 @@ if __name__ == "__main__":
     parser.add_argument("--token", type=str)
     parser.add_argument("--model", type=str)
     args = parser.parse_args()
+
+    if args.model is None:
+        args.model = os.environ['MODEL_NAME']
 
     logdir = args.workdir / "logs"
     logdir.mkdir(exist_ok=True, parents=False)
